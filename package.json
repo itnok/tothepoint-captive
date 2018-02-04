@@ -4,6 +4,12 @@
   "description": "Captive Portal for AdvancedTomato based on Nuxt and Netlify",
   "author": "Simone Conti <s.conti@itnok.com>",
   "private": true,
+  "config": {
+    "nuxt": {
+      "host": "0.0.0.0",
+      "port": "3000"
+    }
+  },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
