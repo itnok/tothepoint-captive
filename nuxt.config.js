@@ -43,9 +43,15 @@ module.exports = {
     }
   },
   modules: [
-    ['@nuxtjs/axios']
+    [
+      '@nuxtjs/markdownit',
+      '@nuxtjs/axios'
+    ]
   ],
   plugins: [
     '~/plugins/vuetify.js'
-  ]
+  ],
+  markdownit: {
+    injected: true
+  }
 }

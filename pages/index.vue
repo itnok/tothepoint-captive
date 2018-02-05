@@ -3,11 +3,9 @@
     <v-flex dflex xs12>
       <app-logo/>
       <h1 class="title">
-        tothepoint-captive
+        {{ page.title }}
       </h1>
-      <h2 class="subtitle">
-        Captive Portal for AdvancedTomato based on Nuxt and Netlify
-      </h2>
+      <div v-html="$md.render(page.body)"></div>
       <div class="links">
         <a
           href="https://nuxtjs.org/"
@@ -61,7 +59,7 @@ export default {
   padding: 1px 0;
   height: 100vh;
   width: 100%;
-  background-image: "/img/null.png";
+  background-image: url("/img/null.png");
   background-size: cover;
   display: flex;
   justify-content: center;
