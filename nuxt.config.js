@@ -24,6 +24,10 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    vendor: [
+      'axios',
+      '~/plugins/vuetify.js'
+    ],
     /*
     ** Run ESLint on save
     */
@@ -37,5 +41,11 @@ module.exports = {
         })
       }
     }
-  }
+  },
+  modules: [
+    ['@nuxtjs/axios']
+  ],
+  plugins: [
+    '~/plugins/vuetify.js'
+  ]
 }
