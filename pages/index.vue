@@ -1,6 +1,6 @@
 <template>
-  <section class="container">
-    <div>
+  <v-layout row wrap ref="wall" class="wallpaper">
+    <v-flex dflex xs12>
       <app-logo/>
       <h1 class="title">
         tothepoint-captive
@@ -18,8 +18,8 @@
           target="_blank"
           class="button--grey">GitHub</a>
       </div>
-    </div>
-  </section>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -27,19 +27,42 @@ import axios from 'axios'
 import AppLogo from '~/components/AppLogo.vue'
 
 export default {
+  data () {
+    return {
+      page: {
+        title: "title",
+        wallpaper: "",
+        body: "body"
+      }
+    }
+  },
   async asyncData ({ params }) {
     let { data } = await axios.get('/page/welcome.json')
     return { page: data }
   },
+  watch: {
+    page: function (val) {
+      this.$refs.wall.style='background-image: url("' + val.wallpaper + '")'
+    }
+  },
   components: {
     AppLogo
+  },
+  mounted: function() {
+    this.$nextTick(() => {
+      this.$refs.wall.style='background-image: url("' + this.page.wallpaper + '")'
+    })
   }
 }
 </script>
 
 <style>
-.container {
-  min-height: 100vh;
+.wallpaper {
+  padding: 1px 0;
+  height: 100vh;
+  width: 100%;
+  background-image: "/img/null.png";
+  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
