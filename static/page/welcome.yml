@@ -1,8 +1,17 @@
----
-layout: welcome
-title: "To The Point"
-wallpaper: ""
----
+title: Title of the page
+wallpaper: /img/uploads/img_3181.jpg
+body: >-
+  This is the space for the **Captive Portal** instructions.\
 
-Login instructions...
-Could be _"improved"_ using **Markdown** to add _italics_ & **Bold** or whatever you want.
+  You can use **Markdown** to add _"some accent"_ and make the text more
+  understandable to the users.
+
+
+  Multiple chapters can be added and the overall length of the text is all up to
+  you.
+
+
+  ### Section 1
+
+
+  Sections with their respective title are allowed as well.
