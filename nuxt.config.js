@@ -7,15 +7,23 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Captive Portal for AdvancedTomato based on Nuxt and Netlify' }
+      { name: 'description', content: 'Captive Portal for AdvancedTomato based on Nuxt and Netlify', hid: 'description' }
     ],
     script: [
       { src: 'https://identity.netlify.com/v1/netlify-identity-widget.js' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon',       href: '/favicon.ico', type: 'image/x-icon' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans|Material+Icons' }
     ]
   },
+  /*
+  ** Global CSS
+  */
+  css: [
+    '~/assets/css/app.styl',
+    '~/assets/css/main.css'
+  ],
   /*
   ** Customize the progress bar color
   */
@@ -28,6 +36,7 @@ module.exports = {
       'axios',
       '~/plugins/vuetify.js'
     ],
+    extractCSS: true,
     /*
     ** Run ESLint on save
     */
