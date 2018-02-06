@@ -1,22 +1,52 @@
 <template>
-  <v-layout row wrap ref="wall" class="wallpaper">
-    <v-flex dflex xs12>
-      <app-logo/>
-      <h1 class="title">
-        {{ page.title }}
-      </h1>
-      <div v-html="$md.render(page.body)"></div>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green">Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey">GitHub</a>
-      </div>
+  <v-layout row wrap align-center justify-center ref="wall" class="wallpaper">
+    <v-flex xs10 sm8 md4>
+      <v-card class="elevation-12">
+        <v-toolbar dark color="primary">
+          <v-toolbar-title class="title-center">{{ page.title }}</v-toolbar-title>
+        </v-toolbar>
+        <v-card-text>
+          <v-form>
+            <v-text-field
+              prepend-icon="person"
+              name="name"
+              label="Name"
+              type="text"
+              v-model="email"
+              :rules="[rules.required]"
+            ></v-text-field>
+            <v-text-field
+              prepend-icon="email"
+              name="email"
+              label="eMail"
+              type="text"
+              v-model="email"
+              :rules="[rules.required, rules.email]"
+            ></v-text-field>
+            <v-checkbox
+              label="I agree to sell-off my suol for WiFi"
+              v-model="disclaimer"
+              :rules="[rules.required]"
+            ></v-checkbox>
+            <v-btn flat small @click.stop="dlgDisclaimer = true">(more about this)</v-btn>
+          </v-form>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn block color="primary">Connect to Free WiFi</v-btn>
+        </v-card-actions>
+      </v-card>
     </v-flex>
+    <v-dialog v-model="dlgDisclaimer" max-width="500px">
+      <v-card>
+        <v-card-title>
+          <h3>Disclaimer</h3>
+          <div v-html="$md.render(page.disclaimer)"></div>
+        </v-card-title>
+        <v-card-actions>
+          <v-btn color="primary" flat block @click.stop="dlgDisclaimer = false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-layout>
 </template>
 
@@ -27,9 +57,20 @@ import AppLogo from '~/components/AppLogo.vue'
 export default {
   data () {
     return {
+      dlgDisclaimer: false,
+      name: '',
+      email: '',
+      disclaimer: false,
+      rules: {
+        required: (value) => !!value || 'Required.',
+        email: (value) => {
+          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          return pattern.test(value) || 'Invalid e-mail.'
+        }
+      },
       page: {
         title: "title",
-        wallpaper: "",
+        wallpaper: "/img/null.png",
         body: "body"
       }
     }
@@ -70,13 +111,9 @@ export default {
   text-align: center;
 }
 
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
+.title-center {
+  width: 100%;
+  text-align: center;
 }
 
 .links {

@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-content>
-      <v-container fluid>
+      <v-container fluid fill-height no-padding>
         <nuxt />
       </v-container>
     </v-content>
@@ -18,6 +18,10 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
+}
+
+.no-padding {
+  padding: 0px;
 }
 
 *, *:before, *:after {
