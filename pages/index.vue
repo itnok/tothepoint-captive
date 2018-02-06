@@ -2,10 +2,13 @@
   <v-layout row wrap align-center justify-center ref="wall" class="wallpaper">
     <v-flex xs10 sm8 md4>
       <v-card class="elevation-12">
-        <v-toolbar dark color="primary">
-          <v-toolbar-title class="title-center">{{ page.title }}</v-toolbar-title>
-        </v-toolbar>
         <v-card-text>
+          <v-badge class="bdg-100w">
+            <span slot="badge">
+              <v-icon dark large>wifi</v-icon>
+            </span>
+            <h1 class="display-1 title-center">{{ page.title }}</h1>
+          </v-badge>
           <v-form>
             <v-text-field
               prepend-icon="person"
@@ -35,6 +38,21 @@
           <v-btn block color="primary">Connect to Free WiFi</v-btn>
         </v-card-actions>
       </v-card>
+      <v-footer class="welcome-footer">
+        <v-layout row wrap justify-center>
+          <v-flex xs12 py-2 text-xs-center white--text class="footer-flex">
+            <v-card height="57px" flat>
+              <div class="headline text-xs-center pa-2"></div>
+              <v-bottom-nav absolute :value="true" :active.sync="e1" color="transparent">
+                <v-btn flat color="teal" value="menu" :href="page.menu">
+                  <span>Menu</span>
+                  <v-icon>restaurant_menu</v-icon>
+                </v-btn>
+              </v-bottom-nav>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-footer>
     </v-flex>
     <v-dialog v-model="dlgDisclaimer" max-width="500px">
       <v-card>
@@ -71,6 +89,8 @@ export default {
       page: {
         title: "title",
         wallpaper: "/img/null.png",
+        disclaimer: "legal stuff",
+        menu: "",
         body: "body"
       }
     }
@@ -114,9 +134,27 @@ export default {
 .title-center {
   width: 100%;
   text-align: center;
+  padding: 30px 0;
+  font-weight: 200;
 }
 
-.links {
-  padding-top: 15px;
+.bdg-100w {
+  width: 100%;
+}
+
+.bdg-100w .badge__badge {
+  top: -50px;
+  right: unset;
+  left: 97%;
+  width: 65px;
+  height: 65px;
+}
+.welcome-footer {
+  padding: 0px;
+  border-top: 1px solid lightgrey;
+}
+
+.footer-flex {
+  padding: 0px !important;
 }
 </style>

@@ -21,4 +21,5 @@ collections:
           - { name: "title",      label: "Title",      widget: "string"   }
           - { name: "wallpaper",  label: "Wallpaper",  widget: "image"    }
           - { name: "disclaimer", label: "Disclaimer", widget: "markdown" }
+          - { name: "menu",       label: "PDF Menu",   widget: "file"     }
           - { name: "body",       label: "Body",       widget: "markdown" }
