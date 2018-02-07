@@ -188,7 +188,13 @@ export default {
   },
   async asyncData ({ params }) {
     let p = await axios.get('/page/welcome.json')
-    let n = await axios.get('/news/list.json')
+
+    let n = [];
+    try {
+      n = await axios.get('/news/list.json')
+    } catch(e) {
+      // catch error
+    }
 
     return {
       page: typeof p.data === 'object' ? p.data : {},
