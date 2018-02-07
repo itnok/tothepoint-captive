@@ -2,6 +2,7 @@
   "title": "Title of the page",
   "wallpaper": "/img/uploads/img_3181.jpg",
   "disclaimer": "This is where the legalese comes in to tell people they are basically selling-off their souls just to check Twitter for 2 nanoseconds.\\\nYou can use **Markdown** to add _\"some accent\"_ and make the text more understandable to the users.\n",
+  "specials": "",
   "menu": "/img/uploads/to-the-point-sd-menu.pdf",
   "body": "This is the space for the **Captive Portal** instructions.\\\nYou can use **Markdown** to add _\"some accent\"_ and make the text more understandable to the users.\n\nMultiple chapters can be added and the overall length of the text is all up to you.\n\n### Section 1\n\nSections with their respective title are allowed as well."
 }

@@ -27,7 +27,7 @@
               :rules="[rules.required, rules.email]"
             ></v-text-field>
             <v-checkbox
-              label="I agree to sell-off my suol for WiFi"
+              label="I agree to sell my soul for WiFi"
               v-model="disclaimer"
               :rules="[rules.required]"
             ></v-checkbox>
@@ -48,20 +48,59 @@
                   <span>Menu</span>
                   <v-icon>restaurant_menu</v-icon>
                 </v-btn>
+                <v-btn flat color="teal" value="specials" @click.stop="dlgSpecials = true" v-if="page.specials.trim().length > 0">
+                  <span>Today's Specials</span>
+                  <v-icon>stars</v-icon>
+                </v-btn>
               </v-bottom-nav>
             </v-card>
           </v-flex>
         </v-layout>
       </v-footer>
     </v-flex>
-    <v-dialog v-model="dlgDisclaimer" max-width="500px">
+    <v-dialog v-model="dlgDisclaimer" max-width="600px">
       <v-card>
         <v-card-title>
-          <h3>Disclaimer</h3>
-          <div v-html="$md.render(page.disclaimer)"></div>
+          <v-layout row wrap>
+            <v-flex xs6 text-xs-left>
+              <h3>Disclaimer</h3>
+            </v-flex>
+            <v-flex xs6 text-xs-right>
+              <v-icon large>gavel</v-icon>
+            </v-flex>
+          </v-layout>
+          <div class="divider"></div>
+          <v-layout row wrap>
+            <v-flex xs12>
+              <div v-html="$md.render(page.disclaimer)"></div>
+            </v-flex>
+          </v-layout>
         </v-card-title>
         <v-card-actions>
           <v-btn color="primary" flat block @click.stop="dlgDisclaimer = false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="dlgSpecials" max-width="600px" v-if="page.specials.trim().length > 0">
+      <v-card>
+        <v-card-title>
+          <v-layout row wrap>
+            <v-flex xs6 text-xs-left>
+              <h3>Today's Specials</h3>
+            </v-flex>
+            <v-flex xs6 text-xs-right>
+              <v-icon large>stars</v-icon>
+            </v-flex>
+          </v-layout>
+          <div class="divider"></div>
+          <v-layout row wrap>
+            <v-flex xs12>
+              <div v-html="$md.render(page.specials)"></div>
+            </v-flex>
+          </v-layout>
+        </v-card-title>
+        <v-card-actions>
+          <v-btn color="primary" flat block @click.stop="dlgSpecials = false">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -76,6 +115,7 @@ export default {
   data () {
     return {
       dlgDisclaimer: false,
+      dlgSpecials: false,
       name: '',
       email: '',
       disclaimer: false,
@@ -90,6 +130,7 @@ export default {
         title: "title",
         wallpaper: "/img/null.png",
         disclaimer: "legal stuff",
+        specials: "",
         menu: "",
         body: "body"
       }
@@ -156,5 +197,15 @@ export default {
 
 .footer-flex {
   padding: 0px !important;
+}
+
+.divider {
+  background: transparent !important;
+  width: 100%;
+  min-width: 100%;
+  height: 1px;
+  margin-top: 10px;
+  border-top: 1px solid lightgrey;
+  padding-top: 10px;
 }
 </style>
