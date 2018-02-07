@@ -1,0 +1,8 @@
+{
+  "title": "News 1",
+  "subtitle": "This is the subtitle",
+  "date": "2018-02-07T07:48:34.590Z",
+  "thumbnail": "/img/uploads/img_3181.jpg",
+  "negative": false,
+  "body": "This is the content of the actual news.\n\n**Second line** of text.\n\n_Third line_ of text to better explain what is going on."
+}
