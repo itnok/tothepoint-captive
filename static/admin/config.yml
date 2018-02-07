@@ -8,8 +8,22 @@ media_folder: "static/img/uploads"
 public_folder: "/img/uploads"
 
 collections:
+  - name: "news"
+    label: "News"
+    folder: "static/news"
+    extension: "json"
+    format: "json"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { name: "title",     label: "Title",                widget: "string"   }
+      - { name: "subtitle",  label: "Subtitle",             widget: "string"   }
+      - { name: "date",      label: "Publish Date",         widget: "datetime" }
+      - { name: "thumbnail", label: "Featured Image",       widget: "image"    }
+      - { name: "negative",  label: "Negative title color", widget: "boolean"  }
+      - { name: "body",      label: "Body",                 widget: "markdown" }
   - name: "pages"
-    label: "Pages" # Used in the UI
+    label: "Pages"
     files:
       - name: "welcome"
         label: "Captive Portal Welcome Page"
