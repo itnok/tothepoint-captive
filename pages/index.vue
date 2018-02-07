@@ -43,7 +43,14 @@
           <v-flex xs12 py-2 text-xs-center white--text class="footer-flex">
             <v-card height="57px" flat>
               <div class="headline text-xs-center pa-2"></div>
-              <v-bottom-nav absolute :value="true" :active.sync="e1" color="transparent">
+              <v-bottom-nav absolute :value="true" color="transparent">
+                <v-badge left color="purple" overlap v-if="newsList.length > 0">
+                  <span slot="badge" dark small>{{ newsList.length }}</span>
+                  <v-btn flat color="teal" value="specials" @click.stop="dlgNews = true">
+                    <span>News</span>
+                    <v-icon>new_releases</v-icon>
+                  </v-btn>
+                </v-badge>
                 <v-btn flat color="teal" value="menu" :href="page.menu">
                   <span>Menu</span>
                   <v-icon>restaurant_menu</v-icon>
@@ -81,6 +88,47 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog v-model="dlgNews" fullscreen transition="dialog-bottom-transition" :overlay="false" v-if="newsList.length > 0">
+      <v-card>
+        <v-toolbar dark color="primary">
+          <v-btn icon @click.native="dlgNews = false" dark>
+            <v-icon>close</v-icon>
+          </v-btn>
+          <v-toolbar-title>News</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-toolbar-items>
+            <v-icon dark large>new_releases</v-icon>
+          </v-toolbar-items>
+        </v-toolbar>
+        <v-card-actions>
+          <v-layout row wrap>
+            <v-flex xs12 sm6 md4 lg3 v-for="item in news" :key="item.title">
+              <v-card class="card-news">
+                <v-card-media
+                  :class="(item.negative ? 'white--text' : '')"
+                  height="200px"
+                  :src="item.thumbnail"
+                >
+                  <v-container fill-height fluid>
+                    <v-layout fill-height>
+                      <v-flex xs12 align-end flexbox>
+                        <span class="headline">{{ item.title }}</span>
+                      </v-flex>
+                    </v-layout>
+                  </v-container>
+                </v-card-media>
+                <v-card-title>
+                  <div>
+                    <span class="grey--text">{{ item.subtitle }}</span><br>
+                    <div v-html="typeof item.body === 'string' ? $md.render(item.body) : ''"></div>
+                  </div>
+                </v-card-title>
+              </v-card>
+            </v-flex>
+          </v-layout>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <v-dialog v-model="dlgSpecials" max-width="600px" v-if="page.specials.trim().length > 0">
       <v-card>
         <v-card-title>
@@ -109,12 +157,12 @@
 
 <script>
 import axios from 'axios'
-import AppLogo from '~/components/AppLogo.vue'
 
 export default {
   data () {
     return {
       dlgDisclaimer: false,
+      dlgNews: false,
       dlgSpecials: false,
       name: '',
       email: '',
@@ -133,24 +181,34 @@ export default {
         specials: "",
         menu: "",
         body: "body"
-      }
+      },
+      newsList: [],
+      news: []
     }
   },
   async asyncData ({ params }) {
-    let { data } = await axios.get('/page/welcome.json')
-    return { page: data }
-  },
-  watch: {
-    page: function (val) {
-      this.$refs.wall.style='background-image: url("' + val.wallpaper + '")'
+    let p = await axios.get('/page/welcome.json')
+    let n = await axios.get('/news/list.json')
+
+    return {
+      page: typeof p.data === 'object' ? p.data : {},
+      newsList: typeof n.data === 'object' ? n.data : []
     }
-  },
-  components: {
-    AppLogo
   },
   mounted: function() {
     this.$nextTick(() => {
+      const self = this;
+      let filename = ''
+
       this.$refs.wall.style='background-image: url("' + this.page.wallpaper + '")'
+
+      async function loadNews() {
+        for(filename of self.newsList) {
+          let { data } = await axios.get('/news/' + filename)
+          self.news.push(data)
+        }
+      }
+      loadNews()
     })
   }
 }
@@ -207,5 +265,9 @@ export default {
   margin-top: 10px;
   border-top: 1px solid lightgrey;
   padding-top: 10px;
+}
+
+.card-news {
+  margin: 25px;
 }
 </style>

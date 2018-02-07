@@ -54,7 +54,8 @@ module.exports = {
   modules: [
     [
       '@nuxtjs/markdownit',
-      '@nuxtjs/axios'
+      '@nuxtjs/axios',
+      '~/modules/news-list'
     ]
   ],
   plugins: [
