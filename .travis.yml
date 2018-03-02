@@ -9,6 +9,7 @@ node_js:
   - '8'
 
 before_deploy:
+  - npm run build
   - mkdir s3
   - cd dist
   - tar -zcf ../s3/${REPO}-${BUILD_ENV}-${TRAVIS_TAG}-${TRAVIS_BUILD_NUMBER}.tar.gz .
