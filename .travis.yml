@@ -16,6 +16,7 @@ before_deploy:
   - mkdir -p .nuxt/s3
   - cd .nuxt/dist
   - tar -zcf ../s3/${REPO}-${BUILD_ENV}-${TRAVIS_TAG}-${TRAVIS_BUILD_NUMBER}.tar.gz .
+  - cd ../..
 
 deploy:
   provider: s3
@@ -23,7 +24,7 @@ deploy:
   secret_access_key:
     secure: FUzbwAnd42FurDOxk280m4U2P9pKM0ri/OclYL0ejpEPjd7dUGSRv3BifxxjX+KHK+QnrxaZsHJSxoQk+9IrtjEcz3/e5iZrGbZ5tsZA4YHQ+IiDdygrApm4stBdHelO/yu+pWh7hYZTm2J/FEG21jjYUDYMk7wYmDtCFJjtH/ekh/lqHGtGVyLjECq87KSsDjUdVJB948Gzo22fTOJ1Z2RXJwLJCNWt4QnfjobPJ8Yb0riOB677fdHN3tim74vKhFk2AEN28K6rbprnsaWS3Dy8dEJrT1+4+iARAKrYs+I6xVdv9czHfjEzcxW/UaXfTgUZMTfk0FkI3W2kXjDYm1LG1Z6gcwq4L2lH2qaQsaLzMb3l5yVZgvQZek7wOMFLBgFs+tWvrY0Vr8NWT4ITmxAM3thX/ua87DasQMg2R3+Ihu7qmMj2CYIJFf9/WNW/SKywgmsc+BsYwTt9wwon3ACDcPPlSqQWj/R0fyFUgOm1rlDAldnRSkXFv3CBiuWsG+lHRzppYuSuToIp1tKU+EsZS2pQjko/l3SsOE2ZT7YtbkfsrINynx2I3BTpwwP2PX3jGf4XnoTqAJulcvT1B1btW/Bw3J2F7ao0t3QV5X/1lyfX20k6Fhtk3qYVbtpdroDYEw6CQ+eaMdXfk0nSlDlcztyB+s7CcW/+b6g5zvY=
   bucket: 2thepoint
-  local-dir: dist
+  local-dir: .nuxt/s3
   upload-dir: captive
   acl: authenticated_read
   on:
